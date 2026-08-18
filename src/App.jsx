@@ -7,6 +7,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast";
+import Links from "./pages/Links";
+import CreateLinks from "./pages/CreateLinks";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +30,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/links",
+    element: (
+      <ProtectedRoute>
+        <Links />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/create-link",
+    element: (
+      <ProtectedRoute>
+        <CreateLinks />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
