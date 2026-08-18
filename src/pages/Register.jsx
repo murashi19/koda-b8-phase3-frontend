@@ -46,15 +46,13 @@ function Register() {
 
   async function processRegister(data) {
     try {
-      const response = await api.post("/api/register", {
+      await api.post("/api/register", {
         email: data.email,
         password: data.password,
       });
-      const user = response.results;
-
       reset();
 
-      navigate("/login", console.log(user));
+      navigate("/login");
       toast.success(`Register Success, ${data.name || data.email}!`);
     } catch (error) {
       if (error.response?.status === 409) {
