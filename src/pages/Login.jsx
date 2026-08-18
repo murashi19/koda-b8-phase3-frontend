@@ -50,7 +50,7 @@ function Login() {
       navigate("/dashboard");
       toast.success(`Selamat datang, ${user.email}!`);
     } catch (error) {
-      toast.error(error.response?.message || "Email atau password salah");
+      toast.error(error.response?.data?.message || "Email atau password salah");
       console.error(error);
     }
   }
