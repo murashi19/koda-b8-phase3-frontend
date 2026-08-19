@@ -43,7 +43,7 @@ function Login() {
         password: data.password,
       });
 
-      const user = response.data.result;
+      const user = response.data.results;
       const token = response.data.token;
 
       localStorage.setItem("auth", token);
