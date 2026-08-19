@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const navItems = [
   { name: "Dashboard", path: "/dashboard" },
-  { name: "Analytics", path: "/analytics" },
+  { name: "Analytics", path: "/page-not-found" },
   { name: "Links", path: "/links" },
 ];
 
@@ -62,13 +62,16 @@ const Header = () => {
             Create New Link
           </Link>
 
-          <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+          <Link
+            to="/profile"
+            className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden shrink-0 hover:ring-2 hover:ring-blue-500 transition-all"
+          >
             <img
-              src="/avatar.png"
+              src="/profile.jpg"
               alt="User avatar"
               className="w-full h-full object-cover"
             />
-          </div>
+          </Link>
 
           <button
             type="button"

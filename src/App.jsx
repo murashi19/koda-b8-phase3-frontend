@@ -12,6 +12,7 @@ import CreateLinks from "./pages/CreateLinks";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import PageNotFound from "./pages/PageNotFound";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         <CreateLinks />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
   {
     path: "/page-not-found",
