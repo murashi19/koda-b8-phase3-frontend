@@ -98,59 +98,63 @@ function Links() {
           )}
 
           {!loading && !error && (
-            <div className="divide-y divide-gray-100 border-t border-gray-100">
+            <>
               {filteredLinks.length === 0 ? (
                 <p className="text-sm text-gray-400 py-6 text-center">
                   Belum ada link.
                 </p>
               ) : (
-                filteredLinks.map((link) => (
-                  <div
-                    key={link.id}
-                    className="flex items-center justify-between py-4"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <FiLink className="w-4 h-4 text-blue-600" />
-                        <a
-                          href={link.short_url}
-                          target="_blank"
-                          className="text-blue-600 font-medium text-sm hover:underline"
-                        >
-                          {link.short_url.replace(/^https?:\/\//, "")}
-                        </a>
+                <div className="grid grid-flow-col grid-rows-3 sm:grid-rows-4 gap-4 auto-cols-[minmax(250px,1fr)] overflow-x-auto pb-2">
+                  {filteredLinks.map((link) => (
+                    <div
+                      key={link.id}
+                      className="border border-gray-200 rounded-xl p-4 flex flex-col justify-between hover:shadow-sm transition-shadow"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <FiLink className="w-4 h-4 text-blue-600 shrink-0" />
+                          <a
+                            href={link.short_url}
+                            target="_blank"
+                            className="text-blue-600 font-medium text-sm hover:underline truncate"
+                          >
+                            {link.short_url.replace(/^https?:\/\//, "")}
+                          </a>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-2 truncate">
+                          {link.original_url}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          {new Date(link.created_at).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
+                        </p>
+                        <div className="flex items-center justify-end gap-3 my-auto">
+                          <button
+                            onClick={() => handleCopy(link.short_url)}
+                            className="text-gray-400 hover:text-gray-600"
+                          >
+                            <FiCopy className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(link.id)}
+                            disabled={deletingId === link.id}
+                            className="text-gray-400 hover:text-red-500 disabled:opacity-50"
+                          >
+                            <FiTrash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1 truncate max-w-md">
-                        {link.original_url}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">
-                        {new Date(link.created_at).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </p>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleCopy(link.short_url)}
-                        className="text-gray-400 hover:text-gray-600"
-                      >
-                        <FiCopy className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(link.id)}
-                        disabled={deletingId === link.id}
-                        className="text-gray-400 hover:text-red-500"
-                      >
-                        <FiTrash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               )}
-            </div>
+            </>
           )}
         </div>
       </div>
