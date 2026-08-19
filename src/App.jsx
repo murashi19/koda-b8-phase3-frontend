@@ -10,11 +10,16 @@ import { Toaster } from "react-hot-toast";
 import Links from "./pages/Links";
 import CreateLinks from "./pages/CreateLinks";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import LandingPage from "./pages/LandingPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/login" replace />,
+    element: <Navigate to="/home" replace />,
+  },
+  {
+    path: "/home",
+    element: <LandingPage />,
   },
   {
     path: "/login",
