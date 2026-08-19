@@ -65,7 +65,7 @@ function Login() {
           <div className="flex flex-col justify-center items-center mb-1">
             <Link
               to={"/home"}
-              className="text-2xl sm:text-3xl lg:text-2xl font-bold mb-1"
+              className="text-2xl sm:text-3xl lg:text-2xl font-black mb-1 tracking-tighter"
             >
               ShortLink
             </Link>
@@ -145,7 +145,7 @@ function Login() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl py-3 font-medium transition-colors mt-1"
+              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl py-2 font-medium transition-colors mt-1"
             >
               Log In
               <FaArrowRight className="w-4 h-4" />

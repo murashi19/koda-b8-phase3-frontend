@@ -9,7 +9,7 @@ import api from "../lib/axios";
 
 import { PiEyeBold, PiEyeClosed } from "react-icons/pi";
 import { FaArrowRight, FaLock } from "react-icons/fa";
-import { MdOutlineEmail } from "react-icons/md";
+import { MdLink, MdOutlineEmail } from "react-icons/md";
 
 const registerSchema = yup.object({
   email: yup
@@ -74,6 +74,9 @@ function Register() {
         <div className="w-full max-w-sm flex flex-col gap-6">
           {/* Heading */}
           <div className="flex flex-col justify-center items-center mb-1">
+            <div className="rounded-full bg-[#DBE1FF] flex items-center justify-center py-1 px-2 mb-5">
+              <MdLink className="w-6 h-6 text-[#004AC6]" />
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-2xl font-bold mb-1">
               Create Account
             </h2>
@@ -184,7 +187,7 @@ function Register() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl py-3 font-medium transition-colors mt-1"
+              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl py-2 font-medium transition-colors mt-1"
             >
               Sign Up
               <FaArrowRight className="w-4 h-4" />

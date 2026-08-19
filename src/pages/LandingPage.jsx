@@ -24,11 +24,11 @@ const LandingPage = () => {
       <main>
         <section className="max-w-4xl mx-auto px-4 mb-40">
           {/* Hero */}
-          <div className="flex flex-col items-center text-center gap-4 py-16">
-            <h1 className="text-5xl font-extrabold tracking-tighter">
+          <div className="flex flex-col items-center text-center gap-5 py-15">
+            <h1 className="text-6xl font-black tracking-tighter">
               Shorten URLs. <span className="text-blue-500">Share Easily.</span>
             </h1>
-            <p className="max-w-md text-gray-600">
+            <p className="max-w-lg text-gray-600">
               Create short, memorable links for your team communications.
               Transform long, cumbersome URLs into powerful digital assets that
               drive engagement.
@@ -66,7 +66,7 @@ const LandingPage = () => {
               />
               <button
                 type="submit"
-                className="px-8 py-4 rounded-xl bg-blue-600 text-white text-center font-medium hover:bg-blue-700 transition shrink-0"
+                className="px-8 py-3 rounded-xl bg-blue-600 text-white text-center font-medium hover:bg-blue-700 transition shrink-0"
               >
                 Shorten
               </button>
