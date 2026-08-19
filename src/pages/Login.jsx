@@ -63,9 +63,12 @@ function Login() {
         <div className="w-full max-w-sm flex flex-col gap-6">
           {/* Heading */}
           <div className="flex flex-col justify-center items-center mb-1">
-            <h2 className="text-2xl sm:text-3xl lg:text-2xl font-bold mb-1">
+            <Link
+              to={"/home"}
+              className="text-2xl sm:text-3xl lg:text-2xl font-bold mb-1"
+            >
               ShortLink
-            </h2>
+            </Link>
           </div>
 
           {/* Form */}
