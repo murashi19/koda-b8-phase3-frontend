@@ -4,8 +4,9 @@ import { FiLink2 } from "react-icons/fi";
 import Header from "../components/Header";
 
 import { RiFlashlightLine } from "react-icons/ri";
-import { FaCircleCheck } from "react-icons/fa6";
+import { FaCircleCheck, FaUsers } from "react-icons/fa6";
 import Footer from "../components/Footer";
+import { MdEditNote } from "react-icons/md";
 
 const LandingPage = () => {
   const [url, setUrl] = useState("");
@@ -94,26 +95,26 @@ const LandingPage = () => {
               <div className="bg-[#004AC633] w-20 h-1.5 rounded-2xl"></div>
             </div>
             <div className="flex flex-col bg-white shadow-lg p-10 gap-7 rounded-xl">
-              <div className="w-15 h-15 p-5 flex justify-center items-center bg-[#DBE1FF] rounded-xl">
-                <RiFlashlightLine className="w-12 h-12 text-[#004AC6] font-bold " />
+              <div className="w-15 h-15 p-5 flex justify-center items-center bg-[#ACBFFF] rounded-xl">
+                <MdEditNote className="w-12 h-12 text-[#394C84] font-bold " />
               </div>
-              <h1 className="text-xl font-extrabold">Easy Create</h1>
+              <h1 className="text-xl font-extrabold">Custom Slugs</h1>
               <p className="text-left text-lg">
-                Instantly generate high-performance short links with a single
-                click or through our surgical API endpoints.
+                Maintain brand authority with readable, custom link endings that
+                resonate with your digital audience.
               </p>
-              <div className="bg-[#004AC633] w-20 h-1.5 rounded-2xl"></div>
+              <div className="bg-[#ACBFFF] w-20 h-1.5 rounded-2xl"></div>
             </div>
             <div className="flex flex-col bg-white shadow-lg p-10 gap-7 rounded-xl">
-              <div className="w-15 h-15 p-5 flex justify-center items-center bg-[#DBE1FF] rounded-xl">
-                <RiFlashlightLine className="w-12 h-12 text-[#004AC6] font-bold " />
+              <div className="w-15 h-15 p-5 flex justify-center items-center bg-[#FFDBCD] rounded-xl">
+                <FaUsers className="w-12 h-12 text-[#360F00] font-bold " />
               </div>
-              <h1 className="text-xl font-extrabold">Easy Create</h1>
+              <h1 className="text-xl font-extrabold">Team Ready</h1>
               <p className="text-left text-lg">
-                Instantly generate high-performance short links with a single
-                click or through our surgical API endpoints.
+                Collaborate across departments with shared workspaces,
+                permissions, and unified analytics dashboards.
               </p>
-              <div className="bg-[#004AC633] w-20 h-1.5 rounded-2xl"></div>
+              <div className="bg-[#FFDBCD] w-20 h-1.5 rounded-2xl"></div>
             </div>
           </div>
         </section>
