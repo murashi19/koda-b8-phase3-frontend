@@ -3,6 +3,7 @@ import { FiLink, FiCopy, FiTrash2, FiSearch } from "react-icons/fi";
 import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 import Header from "../components/Header";
+import Footer from "../components/Footer.jsx";
 
 function Links() {
   const [links, setLinks] = useState([]);
@@ -58,7 +59,7 @@ function Links() {
   return (
     <>
       <Header />
-      <div className="min-w-screen flex justify-center p-5">
+      <div className="min-w-screen flex justify-center p-10 mb-10">
         <div className="w-full max-w-5xl bg-white rounded-xl border border-gray-200 p-6">
           {/* Header */}
           <div className="flex justify-between items-start mb-6">
@@ -158,6 +159,7 @@ function Links() {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

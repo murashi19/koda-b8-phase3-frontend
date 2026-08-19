@@ -1,10 +1,12 @@
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Dashboard = () => {
   return (
     <>
       <Header />
-      <div>Dashboard</div>;
+      <div className="h-screen">Dashboard</div>;
+      <Footer />
     </>
   );
 };

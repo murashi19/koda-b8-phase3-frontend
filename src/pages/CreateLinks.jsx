@@ -4,6 +4,7 @@ import { FiLink, FiZap, FiArrowLeft } from "react-icons/fi";
 import api from "../lib/axios";
 import Header from "../components/Header";
 import toast from "react-hot-toast";
+import Footer from "../components/Footer";
 
 const CreateLinks = () => {
   const navigate = useNavigate();
@@ -135,6 +136,7 @@ const CreateLinks = () => {
           </div>
         </form>
       </div>
+      <Footer />
     </>
   );
 };
