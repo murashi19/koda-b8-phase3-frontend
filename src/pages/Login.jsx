@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import api from "../lib/axios";
+import { useAuth } from "../context/useAuth";
 
 import { PiEyeBold, PiEyeClosed } from "react-icons/pi";
 import { FaArrowRight, FaLock } from "react-icons/fa";
@@ -26,6 +27,7 @@ const registerSchema = yup.object({
 });
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -46,7 +48,7 @@ function Login() {
       const user = response.data.results;
       const token = response.data.token;
 
-      localStorage.setItem("auth", token);
+      login(user, token);
       navigate("/dashboard");
       toast.success(`Selamat datang, ${user.email}!`);
     } catch (error) {

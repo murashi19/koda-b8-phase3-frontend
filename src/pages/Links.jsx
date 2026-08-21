@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   FiLink,
   FiCopy,
@@ -13,26 +14,44 @@ import Header from "../components/Header";
 import Footer from "../components/Footer.jsx";
 
 function Links() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const limit = parseInt(searchParams.get("limit") || "5", 10);
+  const urlSearch = searchParams.get("search") || "";
+
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [deletingId, setDeletingId] = useState(null);
-
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
-  const limit = 5;
+  const [deletingId, setDeletingId] = useState(null);
 
+  const [searchInput, setSearchInput] = useState(urlSearch);
+
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (searchInput === urlSearch) return;
+
     const timeout = setTimeout(() => {
-      setDebouncedSearch(search);
-      setPage(1);
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        if (searchInput) {
+          next.set("search", searchInput);
+        } else {
+          next.delete("search");
+        }
+        next.set("page", "1");
+        return next;
+      });
     }, 400);
     return () => clearTimeout(timeout);
-  }, [search]);
+  }, [searchInput, setSearchParams, urlSearch]);
 
+  // Fetch data setiap kali page, limit, atau search (di URL) berubah
   useEffect(() => {
     async function fetchLinks() {
       try {
@@ -41,7 +60,7 @@ function Links() {
           params: {
             page,
             limit,
-            search: debouncedSearch || undefined,
+            search: urlSearch || undefined,
           },
         });
         setLinks(res.data.results);
@@ -55,18 +74,12 @@ function Links() {
       }
     }
     fetchLinks();
-  }, [page, debouncedSearch]);
+  }, [page, limit, urlSearch]);
 
   const handleCopy = (shortUrl) => {
     navigator.clipboard.writeText(shortUrl);
     toast.success("Copied Link");
   };
-
-  const filteredLinks = links.filter(
-    (link) =>
-      link.slug.toLowerCase().includes(search.toLowerCase()) ||
-      link.original_url.toLowerCase().includes(search.toLowerCase()),
-  );
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Yakin mau hapus link ini?");
@@ -86,12 +99,24 @@ function Links() {
     }
   };
 
-  const handlePrevPage = () => {
-    setPage((prev) => Math.max(prev - 1, 1));
+  const goToPage = (newPage) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", String(newPage));
+      return next;
+    });
   };
 
-  const handleNextPage = () => {
-    setPage((prev) => Math.min(prev + 1, totalPages));
+  const handlePrevPage = () => goToPage(Math.max(page - 1, 1));
+  const handleNextPage = () => goToPage(Math.min(page + 1, totalPages));
+
+  const handleLimitChange = (newLimit) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("limit", String(newLimit));
+      next.set("page", "1"); // reset ke page 1 kalau limit berubah
+      return next;
+    });
   };
 
   return (
@@ -117,16 +142,29 @@ function Links() {
               </div>
             </div>
 
-            {/* Search bar */}
-            <div className="relative mb-4">
-              <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by slug or origin URL..."
-                className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            {/* Search bar + limit selector */}
+            <div className="flex gap-3 mb-4">
+              <div className="relative flex-1">
+                <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder="Search by slug or origin URL..."
+                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <select
+                value={limit}
+                onChange={(e) => handleLimitChange(Number(e.target.value))}
+                className="border border-gray-200 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={5}>5 / page</option>
+                <option value={10}>10 / page</option>
+                <option value={20}>20 / page</option>
+                <option value={50}>50 / page</option>
+              </select>
             </div>
 
             {/* Link list */}
@@ -141,15 +179,15 @@ function Links() {
 
             {!loading && !error && (
               <>
-                {filteredLinks.length === 0 ? (
+                {links.length === 0 ? (
                   <p className="text-sm text-gray-400 py-6 text-center">
-                    {debouncedSearch
+                    {urlSearch
                       ? "Tidak ada link yang cocok."
                       : "Belum ada link."}
                   </p>
                 ) : (
                   <div className="grid grid-rows-3 sm:grid-rows-4 gap-4 auto-cols-[minmax(250px,1fr)] overflow-x-auto pb-2">
-                    {filteredLinks.map((link) => (
+                    {links.map((link) => (
                       <div
                         key={link.id}
                         className="border border-gray-200 rounded-xl p-4 flex flex-col justify-between hover:shadow-sm transition-shadow"

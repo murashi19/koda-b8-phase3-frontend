@@ -26,6 +26,7 @@ api.interceptors.response.use(
       window.location.pathname !== "/login"
     ) {
       localStorage.removeItem("auth");
+      localStorage.removeItem("user");
       window.location.href = "/login";
     }
 

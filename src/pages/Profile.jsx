@@ -4,14 +4,16 @@ import Footer from "../components/Footer";
 import { FiLink2, FiBell, FiShield, FiEdit2, FiLogOut } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [emailNotif, setEmailNotif] = useState(true);
   const [twoFactor, setTwoFactor] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    logout();
     toast.success("Berhasil logout");
     navigate("/login", { replace: true });
   };
@@ -64,7 +66,7 @@ const Profile = () => {
                 <h1 className="font-bold text-gray-400 text-xs tracking-wider">
                   EMAIL ADDRESS
                 </h1>
-                <span className="text-sm">user@example.com</span>
+                <span className="text-sm">{user?.email ?? "-"}</span>
               </div>
               <div className="flex flex-col justify-center bg-gray-100 p-5 rounded-lg gap-1">
                 <h1 className="font-bold text-gray-400 text-xs tracking-wider">

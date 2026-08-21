@@ -1,6 +1,7 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FiPlus, FiLogOut } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/useAuth";
 
 const navItems = [
   { name: "Dashboard", path: "/dashboard" },
@@ -10,12 +11,10 @@ const navItems = [
 
 const Header = () => {
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("auth");
-  const isAuthenticated = Boolean(token);
+  const { isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    logout();
 
     toast.success("Berhasil logout");
 
